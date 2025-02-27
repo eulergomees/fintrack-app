@@ -1,12 +1,14 @@
 // 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 
+// 📦 Package imports:
+import 'package:google_fonts/google_fonts.dart';
+
 // Firebase imports:
 import 'package:firebase_core/firebase_core.dart';
 import 'firebase_options.dart';
 
 // 🌎 Project imports:
-import 'core/app_theme.dart';
 import 'pages/login/login_page.dart';
 
 Future<void> main() async {
@@ -25,8 +27,9 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fintrack',
-      color: AppTheme.seashell,
-      theme: AppTheme.lightTheme,
+      theme: ThemeData(
+        textTheme: GoogleFonts.robotoFlexTextTheme(),
+      ),
       home: const LoginPage(),
     );
   }

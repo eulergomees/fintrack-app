@@ -4,8 +4,8 @@ import 'package:flutter/material.dart';
 class AppTheme{
   AppTheme._();
 
-  static const Color mint= Color(0xFFA5F2A1);
-  static const Color olive = Color(0xFF43483E);
+  static const Color ocean = Color(0xFF1e88e5);
+  static const Color carbon = Color(0xFF212121);
   static const Color seashell = Color(0xFFFFF3E9);
   static const Color bone = Color(0xFFF8FAF0);
 
@@ -27,7 +27,7 @@ class AppTheme{
 
   static ThemeData lightTheme = ThemeData(
     primarySwatch: mintMaterial,
-    primaryColorLight: mint,
+    primaryColorLight: ocean,
     primaryColor: seashell,
     fontFamily: 'Gotham',
   );

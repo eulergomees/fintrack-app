@@ -6,17 +6,16 @@ import 'package:flutter/material.dart';
 // 🌎 Project imports:
 import 'package:frontend/core/app_theme.dart';
 import 'package:frontend/core/app_images.dart';
-import 'package:frontend/pages/login/signup_page.dart';
 import '../../core/app_textstyle.dart';
 
-class LoginPage extends StatefulWidget {
-  const LoginPage({super.key});
+class SignUpPage extends StatefulWidget {
+  const SignUpPage({super.key});
 
   @override
-  State<LoginPage> createState() => _LoginPageState();
+  State<SignUpPage> createState() => _SignUpPageState();
 }
 
-class _LoginPageState extends State<LoginPage> {
+class _SignUpPageState extends State<SignUpPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
   bool isObscureText = true;
@@ -54,11 +53,39 @@ class _LoginPageState extends State<LoginPage> {
                   height: 30,
                 ),
                 const Text(
-                  "Login or Signup",
+                  "Register below",
                   style: TextStyle(fontSize: 18, color: Colors.black),
                 ),
                 const SizedBox(
                   height: 40,
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 30),
+                  height: 30,
+                  alignment: Alignment.center,
+                  child: TextField(
+                    controller: _emailController,
+                    onChanged: (value) {
+                      debugPrint(value);
+                    },
+                    style: const TextStyle(color: Colors.black),
+                    decoration: const InputDecoration(
+                        contentPadding: EdgeInsets.only(top: -1),
+                        enabledBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppTheme.ocean)),
+                        focusedBorder: UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppTheme.ocean)),
+                        prefixIcon: Icon(
+                          Icons.person_outline,
+                          color: AppTheme.ocean,
+                        ),
+                        hintText: "Name",
+                        hintStyle:
+                            TextStyle(color: Colors.black26, fontSize: 17)),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.04,
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30),
@@ -129,7 +156,50 @@ class _LoginPageState extends State<LoginPage> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.05,
+                  height: MediaQuery.of(context).size.height * 0.04,
+                ),
+                Container(
+                  margin: const EdgeInsets.symmetric(horizontal: 30),
+                  height: 30,
+                  width: double.infinity,
+                  alignment: Alignment.center,
+                  child: TextField(
+                    controller: _passwordController,
+                    obscureText: isObscureText,
+                    onChanged: (value) {
+                      debugPrint(value);
+                    },
+                    style: const TextStyle(color: Colors.black),
+                    decoration: InputDecoration(
+                        contentPadding: const EdgeInsets.only(top: -1),
+                        enabledBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppTheme.ocean)),
+                        focusedBorder: const UnderlineInputBorder(
+                            borderSide: BorderSide(color: AppTheme.ocean)),
+                        prefixIcon: const Icon(
+                          Icons.lock_outline,
+                          color: AppTheme.ocean,
+                        ),
+                        suffixIcon: InkWell(
+                          //InkWell Or GestureDetector
+                          onTap: () {
+                            isObscureText = !isObscureText;
+                            setState(() {});
+                          },
+                          child: Icon(
+                            isObscureText
+                                ? Icons.visibility_off
+                                : Icons.visibility,
+                            color: AppTheme.carbon,
+                          ),
+                        ),
+                        hintText: "Confirm your password",
+                        hintStyle: const TextStyle(
+                            color: Colors.black26, fontSize: 17)),
+                  ),
+                ),
+                SizedBox(
+                  height: MediaQuery.of(context).size.height * 0.07,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -146,13 +216,13 @@ class _LoginPageState extends State<LoginPage> {
                             Navigator.push(
                               context,
                               MaterialPageRoute(
-                                  builder: (context) => LoginPage()),
+                                  builder: (context) => SignUpPage()),
                             );
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
                             child: Text(
-                              'Login',
+                              'Sign Up',
                               style: AppTextStyle.boldTextSeashell
                                   .copyWith(fontSize: 24),
                             ),
@@ -161,46 +231,6 @@ class _LoginPageState extends State<LoginPage> {
                       ),
                     ),
                   ],
-                ),
-                const SizedBox(
-                  height: 30,
-                ),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 30),
-                  height: 30,
-                  alignment: Alignment.center,
-                  child: TextButton(
-                    onPressed: () {},
-                    child: const Text(
-                      "Forget Password?",
-                      style: TextStyle(
-                          color: AppTheme.carbon,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 17),
-                    ),
-                  ),
-                ),
-                Expanded(child: Container()),
-                Container(
-                  margin: const EdgeInsets.symmetric(horizontal: 30),
-                  height: 30,
-                  alignment: Alignment.center,
-                  child: TextButton(
-                    onPressed: () {
-                      Navigator.push(
-                        context,
-                        MaterialPageRoute(
-                            builder: (context) => SignUpPage()),
-                      );
-                    },
-                    child: const Text(
-                      "Sign up",
-                      style: TextStyle(
-                          color: AppTheme.carbon,
-                          fontWeight: FontWeight.w400,
-                          fontSize: 17),
-                    ),
-                  ),
                 ),
                 const SizedBox(
                   height: 60,
