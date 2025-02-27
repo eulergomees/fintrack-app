@@ -7,7 +7,7 @@ import 'app_theme.dart';
 class AppTextStyle {
   AppTextStyle._();
 
-  static const TextStyle boldTextOlive = TextStyle(
+  static const TextStyle boldTextCarbon= TextStyle(
     fontSize: 20,
     fontWeight: FontWeight.w800,
     color: AppTheme.carbon,

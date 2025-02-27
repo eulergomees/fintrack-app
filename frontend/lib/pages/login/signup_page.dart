@@ -16,8 +16,11 @@ class SignUpPage extends StatefulWidget {
 }
 
 class _SignUpPageState extends State<SignUpPage> {
-  TextEditingController _emailController = TextEditingController();
-  TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _nameController = TextEditingController();
+  final TextEditingController _emailController = TextEditingController();
+  final TextEditingController _passwordController = TextEditingController();
+  final TextEditingController _confirmPasswordController =
+      TextEditingController();
   bool isObscureText = true;
 
   @override
@@ -64,7 +67,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   height: 30,
                   alignment: Alignment.center,
                   child: TextField(
-                    controller: _emailController,
+                    controller: _nameController,
                     onChanged: (value) {
                       debugPrint(value);
                     },
@@ -164,7 +167,7 @@ class _SignUpPageState extends State<SignUpPage> {
                   width: double.infinity,
                   alignment: Alignment.center,
                   child: TextField(
-                    controller: _passwordController,
+                    controller: _confirmPasswordController,
                     obscureText: isObscureText,
                     onChanged: (value) {
                       debugPrint(value);
@@ -213,11 +216,28 @@ class _SignUpPageState extends State<SignUpPage> {
                                 WidgetStateProperty.all(AppTheme.ocean),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => SignUpPage()),
-                            );
+                            if (_passwordController.text.trim().isEmpty ||
+                                _confirmPasswordController.text
+                                    .trim()
+                                    .isEmpty) {
+                              ScaffoldMessenger.of(context).showSnackBar(
+                                  const SnackBar(
+                                      content:
+                                          Text("Please enter a password")));
+                            } else {
+                              if (_passwordController.text.trim() !=
+                                  _confirmPasswordController.text.trim()) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content:
+                                            Text("Password doesn't match")));
+                              } else if (_passwordController.text.trim() ==
+                                  _confirmPasswordController.text.trim()) {
+                                ScaffoldMessenger.of(context).showSnackBar(
+                                    const SnackBar(
+                                        content: Text("Password match")));
+                              }
+                            }
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
