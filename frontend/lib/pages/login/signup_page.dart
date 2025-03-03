@@ -1,12 +1,14 @@
 // 🐦 Flutter imports:
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
-
-// 🌎 Project imports:
 import 'package:frontend/core/app_theme.dart';
 import 'package:frontend/core/app_images.dart';
+
+// 🌎 Project imports:
 import '../../core/app_textstyle.dart';
+import '../../services/auth_service.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -20,7 +22,10 @@ class _SignUpPageState extends State<SignUpPage> {
   final TextEditingController _emailController = TextEditingController();
   final TextEditingController _passwordController = TextEditingController();
   final TextEditingController _confirmPasswordController =
-      TextEditingController();
+  TextEditingController();
+
+  AuthService authService = AuthService();
+
   bool isObscureText = true;
 
   @override
@@ -31,7 +36,10 @@ class _SignUpPageState extends State<SignUpPage> {
         body: SingleChildScrollView(
           child: ConstrainedBox(
             constraints: BoxConstraints(
-              maxHeight: MediaQuery.of(context).size.height,
+              maxHeight: MediaQuery
+                  .of(context)
+                  .size
+                  .height,
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -46,7 +54,10 @@ class _SignUpPageState extends State<SignUpPage> {
                       flex: 8,
                       child: Image.asset(
                         AppImages.logo,
-                        height: MediaQuery.of(context).size.height * 0.29,
+                        height: MediaQuery
+                            .of(context)
+                            .size
+                            .height * 0.29,
                       ),
                     ),
                     Expanded(child: Container()),
@@ -84,11 +95,14 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         hintText: "Name",
                         hintStyle:
-                            TextStyle(color: Colors.black26, fontSize: 17)),
+                        TextStyle(color: Colors.black26, fontSize: 17)),
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.04,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.04,
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30),
@@ -112,11 +126,14 @@ class _SignUpPageState extends State<SignUpPage> {
                         ),
                         hintText: "Email",
                         hintStyle:
-                            TextStyle(color: Colors.black26, fontSize: 17)),
+                        TextStyle(color: Colors.black26, fontSize: 17)),
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.04,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.04,
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30),
@@ -159,7 +176,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.04,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.04,
                 ),
                 Container(
                   margin: const EdgeInsets.symmetric(horizontal: 30),
@@ -202,7 +222,10 @@ class _SignUpPageState extends State<SignUpPage> {
                   ),
                 ),
                 SizedBox(
-                  height: MediaQuery.of(context).size.height * 0.07,
+                  height: MediaQuery
+                      .of(context)
+                      .size
+                      .height * 0.07,
                 ),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.center,
@@ -213,29 +236,40 @@ class _SignUpPageState extends State<SignUpPage> {
                         child: ElevatedButton(
                           style: ButtonStyle(
                             backgroundColor:
-                                WidgetStateProperty.all(AppTheme.ocean),
+                            WidgetStateProperty.all(AppTheme.ocean),
                           ),
                           onPressed: () {
-                            if (_passwordController.text.trim().isEmpty ||
+                            if (_passwordController.text
+                                .trim()
+                                .isEmpty ||
                                 _confirmPasswordController.text
                                     .trim()
                                     .isEmpty) {
                               ScaffoldMessenger.of(context).showSnackBar(
                                   const SnackBar(
                                       content:
-                                          Text("Please enter a password")));
+                                      Text("Please enter a password")));
                             } else {
                               if (_passwordController.text.trim() !=
                                   _confirmPasswordController.text.trim()) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content:
-                                            Text("Password doesn't match")));
+                                        Text("Password doesn't match")));
                               } else if (_passwordController.text.trim() ==
-                                  _confirmPasswordController.text.trim()) {
+                                  _confirmPasswordController.text.trim() ||
+                                  _nameController.text
+                                      .trim()
+                                      .isNotEmpty || _emailController.text
+                                  .trim()
+                                  .isNotEmpty) {
                                 ScaffoldMessenger.of(context).showSnackBar(
                                     const SnackBar(
                                         content: Text("Password match")));
+                                authService.signUpUser(
+                                    name: _nameController.text,
+                                    email: _emailController.text,
+                                    password: _passwordController.text);
                               }
                             }
                           },
