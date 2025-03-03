@@ -14,14 +14,13 @@ class AuthService {
       await userCredential.user!.updateDisplayName(name);
       return null;
     } on FirebaseAuthException catch (e) {
-      if (e.code == 'email-already-in-use') {
+      if (e.code == "email-already-in-use") {
         return 'Email already in use';
       }
-      if (e.code == 'invalid-email') {
+      if (e.code == "invalid-email") {
         return 'Invalid email';
       }
-
-      return 'Unknown error!';
+      return e.code;
     }
   }
 }
