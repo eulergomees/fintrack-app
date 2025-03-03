@@ -9,6 +9,7 @@ import 'package:frontend/shared/my_snackbar.dart';
 // 🌎 Project imports:
 import '../../core/app_textstyle.dart';
 import '../../services/auth_service.dart';
+import 'login_page.dart';
 
 class SignUpPage extends StatefulWidget {
   const SignUpPage({super.key});
@@ -234,8 +235,7 @@ class _SignUpPageState extends State<SignUpPage> {
                               showSnackBar(
                                   context: context,
                                   text: 'Please enter your password');
-                            }
-                            else {
+                            } else {
                               if (_passwordController.text.trim() !=
                                   _confirmPasswordController.text.trim()) {
                                 showSnackBar(
@@ -254,10 +254,7 @@ class _SignUpPageState extends State<SignUpPage> {
                                   if (error != null) {
                                     showSnackBar(context: context, text: error);
                                   } else {
-                                    showSnackBar(
-                                        context: context,
-                                        text: 'Sign up successful',
-                                        isError: false);
+                                    Navigator.pop(context);
                                   }
                                 });
                               }

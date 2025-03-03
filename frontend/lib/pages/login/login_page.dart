@@ -2,11 +2,13 @@
 import 'package:flutter/material.dart';
 
 // 📦 Package imports:
+import '../../services/auth_service.dart';
 
-// 🌎 Project imports:
+// 🌎 Project imports: show AuthService
 import 'package:frontend/core/app_theme.dart';
 import 'package:frontend/core/app_images.dart';
 import 'package:frontend/pages/login/signup_page.dart';
+import 'package:frontend/shared/my_snackbar.dart';
 import '../../core/app_textstyle.dart';
 
 class LoginPage extends StatefulWidget {
@@ -19,6 +21,9 @@ class LoginPage extends StatefulWidget {
 class _LoginPageState extends State<LoginPage> {
   TextEditingController _emailController = TextEditingController();
   TextEditingController _passwordController = TextEditingController();
+
+  AuthService _authService = AuthService();
+
   bool isObscureText = true;
 
   @override
@@ -143,11 +148,17 @@ class _LoginPageState extends State<LoginPage> {
                                 WidgetStateProperty.all(AppTheme.ocean),
                           ),
                           onPressed: () {
-                            Navigator.push(
-                              context,
-                              MaterialPageRoute(
-                                  builder: (context) => LoginPage()),
-                            );
+                            _authService
+                                .loginUser(
+                                    email: _emailController.text,
+                                    password: _passwordController.text)
+                                .then((String? error) {
+                                  if (error != null) {
+                                    showSnackBar(context: context, text: error);
+                                  } else {
+                                    Navigator.pushNamed(context, '/home');
+                                  }
+                            });
                           },
                           child: Padding(
                             padding: const EdgeInsets.all(12.0),
@@ -189,8 +200,7 @@ class _LoginPageState extends State<LoginPage> {
                     onPressed: () {
                       Navigator.push(
                         context,
-                        MaterialPageRoute(
-                            builder: (context) => SignUpPage()),
+                        MaterialPageRoute(builder: (context) => SignUpPage()),
                       );
                     },
                     child: const Text(
