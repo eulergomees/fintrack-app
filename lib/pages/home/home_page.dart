@@ -1,6 +1,6 @@
 // 🐦 Flutter imports:
-
 import 'package:flutter/material.dart';
+
 // 📦 Package imports:
 import '../../services/auth_service.dart';
 
@@ -14,6 +14,7 @@ class HomePage extends StatefulWidget {
 class _HomePageState extends State<HomePage> {
   AuthService _authService = AuthService();
 
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -26,7 +27,7 @@ class _HomePageState extends State<HomePage> {
             ListTile(
               leading: Icon(Icons.logout_outlined),
               title: Text("Logout"),
-              onTap: (){
+              onTap: () {
                 _authService.logout();
               },
             )
