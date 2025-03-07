@@ -12,13 +12,6 @@ class AppTextStyle {
     fontWeight: FontWeight.w800,
     color: AppTheme.carbon,
     fontFamily: 'Gotham',
-    shadows: <Shadow>[
-      Shadow(
-        offset: Offset(1.0, 1.0),
-        blurRadius: 3,
-        color: AppTheme.carbon,
-      ),
-    ],
   );
   static TextStyle boldTextSeashell = TextStyle(
     fontSize: 20,

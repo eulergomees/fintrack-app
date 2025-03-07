@@ -1,16 +1,10 @@
-// 🐦 Flutter imports:
 import 'package:flutter/material.dart';
 import 'package:frontend/pages/home/home_page.dart';
-
-// 📦 Package imports:
 import 'package:google_fonts/google_fonts.dart';
-
-// Firebase imports:
 import 'package:firebase_core/firebase_core.dart';
+import 'core/app_theme.dart';
 import 'firebase_options.dart';
 import 'package:firebase_auth/firebase_auth.dart';
-
-// 🌎 Project imports:
 import 'pages/login/login_page.dart';
 
 Future<void> main() async {
@@ -29,9 +23,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       debugShowCheckedModeBanner: false,
       title: 'Fintrack',
-      theme: ThemeData(
-        textTheme: GoogleFonts.robotoFlexTextTheme(),
-      ),
+      theme: AppTheme.lightTheme,
       home: RouterPage(),
     );
   }
@@ -46,7 +38,7 @@ class RouterPage extends StatelessWidget {
       stream: FirebaseAuth.instance.userChanges(),
       builder: (context, snapshot) {
         if (snapshot.hasData) {
-          return HomePage();
+          return HomePage(user: snapshot.data!,);
         } else {
           return LoginPage();
         }
